@@ -2,7 +2,7 @@ import random
 import os
 import pygame
 
-item_dic = {"rrr": 5, "melody": 10, "ggg": 14, "ggg": 10, "ggg": 30}
+item_dic = {" keroppi": 5, "hello kitty": 10, "my melody": 14, "cinnamoroll": 10, "kuromi": 30}
 times = 1
 characters = []
 c = []
