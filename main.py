@@ -31,7 +31,6 @@ clock = pygame.time.Clock()
 
 gifFrameList = loadGIF(r"pix.gif")
 currentFrame = 0
-pygame.init()
 
 run = True
 while run:
@@ -39,5 +38,11 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mopos = pygame.mouse.get_pos()
+
+    window.fill(0)
+
+    rect = gifFrameList[currentFrame].get_rect(center=(325, 250))
+    window.blit(gifFrameList[currentFrame], rect)
+    currentFrame = (currentFrame + 1) % len(gifFrameList)
+
+    pygame.display.flip()
