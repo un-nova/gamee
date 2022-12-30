@@ -80,7 +80,7 @@ while run:
                         text = font.render(text, True, Textcolor, Rectcolor)
                         textRect = text.get_rect()
                         textRect.center = (x, y)
-                        gameDisplay.blit(text, textRect)
+                        window.blit(text, textRect)
 
 
                     kity = [pygame.image.load('kitty/pixil-frame-0.png'),
@@ -100,7 +100,15 @@ while run:
                         global count
                         run = True
                         while run:
+                            window.blit(fon, (-50, -100))
+                            window.blit(flower, (0, 250))
+                            window.blit(flower2, (440, 250))
                             window.blit(kity[count], (240, 260))
+                            DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
+                                     20)
+                            DrawText("upgrade clicker " + str(50), black, light_blue, 500, 300, 20)
+                            DrawText("buy auto miner " + str(50), black, light_blue, 150, 370, 20)
+                            pygame.display.update()
                             if count == 8:
                                 count = 0
                                 run = False
