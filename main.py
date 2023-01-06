@@ -1,6 +1,10 @@
 import pygame
 import time
 import cv2
+pygame.init()
+
+pygame.mixer.music.load('sounds/start.mp3')
+pygame.mixer.music.play(-1)
 
 pygame.display.set_caption('HelloKitty Garden')
 
@@ -66,6 +70,9 @@ while run:
                     window.blit(fon, (-300, -20))
                     window.blit(flower, (0, 250))
                     window.blit(flower2, (440, 250))
+                    pygame.mixer.music.stop()
+                    pygame.mixer.music.load('sounds/base game.mp3')
+                    pygame.mixer.music.play(-1)
 
 
                     def autominer():
