@@ -2,6 +2,11 @@ import pygame
 import time
 import cv2
 
+pygame.init()
+
+pygame.mixer.music.load('sounds/start.mp3')
+pygame.mixer.music.play(-1)
+
 pygame.display.set_caption('HelloKitty Garden')
 
 
@@ -66,6 +71,9 @@ while run:
                     window.blit(fon, (-300, -20))
                     window.blit(flower, (0, 250))
                     window.blit(flower2, (440, 250))
+                    pygame.mixer.music.stop()
+                    pygame.mixer.music.load('sounds/base game.mp3')
+                    pygame.mixer.music.play(-1)
 
 
                     def autominer():
@@ -106,49 +114,38 @@ while run:
                            pygame.image.load('kuromi/pixil-frame-8.png'),
                            ]
 
+                    melody = [pygame.image.load('my_melody/pixil-frame-0.png'),
+                              pygame.image.load('my_melody/pixil-frame-1.png'),
+                              pygame.image.load('my_melody/pixil-frame-2.png'),
+                              pygame.image.load('my_melody/pixil-frame-3.png'),
+                              pygame.image.load('my_melody/pixil-frame-4.png'),
+                              pygame.image.load('my_melody/pixil-frame-5.png'),
+                              pygame.image.load('my_melody/pixil-frame-6.png'),
+                              pygame.image.load('my_melody/pixil-frame-7.png'),
+                              pygame.image.load('my_melody/pixil-frame-8.png'),
+                              ]
 
-                    def kuromi():
-                        global count
-                        run = True
-                        while run:
-                            window.blit(fon, (-300, -20))
-                            window.blit(flower, (0, 250))
-                            window.blit(flower2, (440, 250))
-                            window.blit(kur[count], (240, 260))
-                            DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
-                                     20)
-                            DrawText("upgrade clicker ", black, light_blue, 530, 390, 20)
-                            DrawText("buy auto miner ", black, light_blue, 120, 390, 20)
-                            pygame.display.update()
-                            if count == 8:
-                                count = 0
-                                run = False
-                            else:
-                                count += 1
-                            pygame.display.update()
-                            clock.tick(35)
+                    kero = [pygame.image.load('keroppi/pixil-frame-0.png'),
+                            pygame.image.load('keroppi/pixil-frame-1.png'),
+                            pygame.image.load('keroppi/pixil-frame-2.png'),
+                            pygame.image.load('keroppi/pixil-frame-3.png'),
+                            pygame.image.load('keroppi/pixil-frame-4.png'),
+                            pygame.image.load('keroppi/pixil-frame-5.png'),
+                            pygame.image.load('keroppi/pixil-frame-6.png'),
+                            pygame.image.load('keroppi/pixil-frame-7.png'),
+                            pygame.image.load('keroppi/pixil-frame-8.png'),
+                            ]
 
-
-                    def kitty():
-                        global count
-                        run = True
-                        while run:
-                            window.blit(fon, (-300, -20))
-                            window.blit(flower, (0, 250))
-                            window.blit(flower2, (440, 250))
-                            window.blit(kity[count], (240, 260))
-                            DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
-                                     20)
-                            DrawText("upgrade clicker ", black, light_blue, 530, 390, 20)
-                            DrawText("buy auto miner ", black, light_blue, 120, 390, 20)
-                            pygame.display.update()
-                            if count == 8:
-                                count = 0
-                                run = False
-                            else:
-                                count += 1
-                            pygame.display.update()
-                            clock.tick(35)
+                    cinnam = [pygame.image.load('cinnamoroll/pixil-frame-0.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-1.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-2.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-3.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-4.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-5.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-6.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-7.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-8.png'),
+                              ]
 
 
                     def main_loop():
@@ -163,6 +160,132 @@ while run:
                         cost2 = 50
                         num = 10
                         lvl = 1
+
+                        def kuromi():
+                            global count
+                            run = True
+                            while run:
+                                window.blit(fon, (-300, -20))
+                                window.blit(flower, (0, 250))
+                                window.blit(flower2, (440, 250))
+                                window.blit(kur[count], (240, 260))
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                         50,
+                                         20)
+                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                         50,
+                                         20)
+                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                pygame.display.update()
+                                if count == 8:
+                                    count = 0
+                                    run = False
+                                else:
+                                    count += 1
+                                pygame.display.update()
+                                clock.tick(35)
+
+                        def kitty():
+                            global count
+                            run = True
+                            while run:
+                                window.blit(fon, (-300, -20))
+                                window.blit(flower, (0, 250))
+                                window.blit(flower2, (440, 250))
+                                window.blit(kity[count], (240, 260))
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                         50,
+                                         20)
+                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                         50,
+                                         20)
+                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                pygame.display.update()
+                                if count == 8:
+                                    count = 0
+                                    run = False
+                                else:
+                                    count += 1
+                                pygame.display.update()
+                                clock.tick(35)
+
+                        def my_melody():
+                            global count
+                            run = True
+                            while run:
+                                window.blit(fon, (-300, -20))
+                                window.blit(flower, (0, 250))
+                                window.blit(flower2, (440, 250))
+                                window.blit(melody[count], (240, 260))
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                         50,
+                                         20)
+                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                         50,
+                                         20)
+                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                pygame.display.update()
+                                if count == 8:
+                                    count = 0
+                                    run = False
+                                else:
+                                    count += 1
+                                pygame.display.update()
+                                clock.tick(35)
+
+                        def keroppi():
+                            global count
+                            run = True
+                            while run:
+                                window.blit(fon, (-300, -20))
+                                window.blit(flower, (0, 250))
+                                window.blit(flower2, (440, 250))
+                                window.blit(kero[count], (240, 260))
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                         50,
+                                         20)
+                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                         50,
+                                         20)
+                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                pygame.display.update()
+                                if count == 8:
+                                    count = 0
+                                    run = False
+                                else:
+                                    count += 1
+                                pygame.display.update()
+                                clock.tick(35)
+
+                        def cinnamoroll():
+                            global count
+                            run = True
+                            while run:
+                                window.blit(fon, (-300, -20))
+                                window.blit(flower, (0, 250))
+                                window.blit(flower2, (440, 250))
+                                window.blit(cinnam[count], (240, 260))
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                         50,
+                                         20)
+                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                         50,
+                                         20)
+                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                pygame.display.update()
+                                if count == 8:
+                                    count = 0
+                                    run = False
+                                else:
+                                    count += 1
+                                pygame.display.update()
+                                clock.tick(35)
+
                         global coins
                         game_running = True
                         while game_running:
@@ -174,15 +297,19 @@ while run:
 
                                 if event.type == pygame.MOUSEBUTTONDOWN:
                                     mopos = pygame.mouse.get_pos()
-                                    h = 30
-                                    w = 30
                                     if mopos >= (260, 0):
                                         if mopos <= (400, 0):
                                             coins += mong
-                                            if coins < 10:
+                                            if lvl == 1:
                                                 kitty()
-                                            if 100 > coins >= 10:
+                                            if lvl == 2:
                                                 kuromi()
+                                            if lvl == 3:
+                                                cinnamoroll()
+                                            if lvl == 4:
+                                                my_melody()
+                                            if lvl == 5:
+                                                keroppi()
                                     if mopos <= (600, 0):
                                         if mopos >= (500, 0):
                                             if coins >= cost:
@@ -198,13 +325,14 @@ while run:
                                                 cost2 = cost2 * 1.5
                                                 autog = autog + 0.5
                                                 cost2 = round(cost2, 0)
-                                    if coins == 2147483647:
-                                        print("You Beat the game")
-                                        game_running = False
-                                    if coins != 5000:
-                                        if coins > num:
+
+                                    if coins < 160:
+                                        if coins > num - 1:
                                             lvl += 1
-                                            num = num * num
+                                            num = num * 2
+                                    else:
+                                        DrawText("YOU WIN ", black, light_blue, 320, 250, 90)
+                                        game_running = False
                             DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
                                      20)
                             DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
