@@ -113,6 +113,102 @@ while run:
                            pygame.image.load('kuromi/pixil-frame-8.png'),
                            ]
 
+                    melody = [pygame.image.load('my_melody/pixil-frame-0.png'),
+                              pygame.image.load('my_melody/pixil-frame-1.png'),
+                              pygame.image.load('my_melody/pixil-frame-2.png'),
+                              pygame.image.load('my_melody/pixil-frame-3.png'),
+                              pygame.image.load('my_melody/pixil-frame-4.png'),
+                              pygame.image.load('my_melody/pixil-frame-5.png'),
+                              pygame.image.load('my_melody/pixil-frame-6.png'),
+                              pygame.image.load('my_melody/pixil-frame-7.png'),
+                              pygame.image.load('my_melody/pixil-frame-8.png'),
+                              ]
+
+                    kero = [pygame.image.load('keroppi/pixil-frame-0.png'),
+                            pygame.image.load('keroppi/pixil-frame-1.png'),
+                            pygame.image.load('keroppi/pixil-frame-2.png'),
+                            pygame.image.load('keroppi/pixil-frame-3.png'),
+                            pygame.image.load('keroppi/pixil-frame-4.png'),
+                            pygame.image.load('keroppi/pixil-frame-5.png'),
+                            pygame.image.load('keroppi/pixil-frame-6.png'),
+                            pygame.image.load('keroppi/pixil-frame-7.png'),
+                            pygame.image.load('keroppi/pixil-frame-8.png'),
+                            ]
+
+                    cinnam = [pygame.image.load('cinnamoroll/pixil-frame-0.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-1.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-2.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-3.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-4.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-5.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-6.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-7.png'),
+                              pygame.image.load('cinnamoroll/pixil-frame-8.png'),
+                              ]
+
+                    def my_melody():
+                        global count
+                        run = True
+                        while run:
+                            window.blit(fon, (-300, -20))
+                            window.blit(flower, (0, 250))
+                            window.blit(flower2, (440, 250))
+                            window.blit(melody[count], (240, 260))
+                            DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
+                                     20)
+                            DrawText("upgrade clicker ", black, light_blue, 530, 390, 20)
+                            DrawText("buy auto miner ", black, light_blue, 120, 390, 20)
+                            pygame.display.update()
+                            if count == 8:
+                                count = 0
+                                run = False
+                            else:
+                                count += 1
+                            pygame.display.update()
+                            clock.tick(35)
+
+
+                    def keroppi():
+                        global count
+                        run = True
+                        while run:
+                            window.blit(fon, (-300, -20))
+                            window.blit(flower, (0, 250))
+                            window.blit(flower2, (440, 250))
+                            window.blit(kero[count], (240, 260))
+                            DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
+                                     20)
+                            DrawText("upgrade clicker ", black, light_blue, 530, 390, 20)
+                            DrawText("buy auto miner ", black, light_blue, 120, 390, 20)
+                            pygame.display.update()
+                            if count == 8:
+                                count = 0
+                                run = False
+                            else:
+                                count += 1
+                            pygame.display.update()
+                            clock.tick(35)
+
+                    def cinnamoroll():
+                        global count
+                        run = True
+                        while run:
+                            window.blit(fon, (-300, -20))
+                            window.blit(flower, (0, 250))
+                            window.blit(flower2, (440, 250))
+                            window.blit(cinnam[count], (240, 260))
+                            DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
+                                     20)
+                            DrawText("upgrade clicker ", black, light_blue, 530, 390, 20)
+                            DrawText("buy auto miner ", black, light_blue, 120, 390, 20)
+                            pygame.display.update()
+                            if count == 8:
+                                count = 0
+                                run = False
+                            else:
+                                count += 1
+                            pygame.display.update()
+                            clock.tick(35)
 
                     def kuromi():
                         global count
