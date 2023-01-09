@@ -1,6 +1,8 @@
 import pygame
 import time
 import cv2
+from random import randint
+from typing import Tuple
 
 pygame.init()
 
@@ -8,6 +10,17 @@ pygame.mixer.music.load('sounds/start.mp3')
 pygame.mixer.music.play(-1)
 
 pygame.display.set_caption('HelloKitty Garden')
+
+mouse_counter = 0
+need_drow_click = False
+mouse_size = int(87)
+
+chor_ef = [pygame.image.load('chors_ef/pixil-frame-0.png'),
+           pygame.image.load('chors_ef/pixil-frame-1.png'),
+           pygame.image.load('chors_ef/pixil-frame-2.png'),
+           pygame.image.load('chors_ef/pixil-frame-3.png'),
+           pygame.image.load('chors_ef/pixil-frame-4.png'),
+           ]
 
 
 def cv2ImageToSurface(cv2Image):
@@ -30,17 +43,39 @@ def loadGIF(filename):
     return frames
 
 
-pygame.init()
 window = pygame.display.set_mode((650, 500))
 clock = pygame.time.Clock()
 
+
+def draw_mouse():
+    global mouse_counter, need_drow_click
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    if click[0] or click[1]:
+        need_drow_click = True
+
+    if mouse_counter == 5:
+        mouse_counter = 0
+        need_drow_click = False
+
+    if need_drow_click:
+        drow_x = mouse[0] - 87 // 2
+        drow_y = mouse[1] - 87 // 2
+
+        window.blit(chor_ef[mouse_counter], (drow_x, drow_y))
+        mouse_counter += 1
+        pygame.display.update()
+        clock.tick(35)
+
+
 gifFrameList = loadGIF(r"pix.gif")
 currentFrame = 0
-pygame.init()
 
 run = True
 while run:
-    clock.tick(7)
+    draw_mouse()
+    clock.tick(30)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -161,6 +196,26 @@ while run:
                         num = 10
                         lvl = 1
 
+                        class Player(pygame.sprite.Sprite):
+                            def __init__(self):
+                                super(Player, self).__init__()
+                                self.surf = pygame.image.load('heart.png').convert_alpha()
+                                self.rect = self.surf.get_rect()
+
+                            def update(self, pos: Tuple):
+                                self.rect.center = pos
+
+                        class Coin(pygame.sprite.Sprite):
+                            def __init__(self):
+                                super(Coin, self).__init__()
+                                self.surf = coin_image = pygame.image.load('flover.png').convert_alpha()
+                                self.rect = self.surf.get_rect(
+                                    center=(
+                                        randint(10, WIDTH - 10),
+                                        randint(10, HEIGHT - 10),
+                                    )
+                                )
+
                         def kuromi():
                             global count
                             run = True
@@ -169,6 +224,9 @@ while run:
                                 window.blit(flower, (0, 250))
                                 window.blit(flower2, (440, 250))
                                 window.blit(kur[count], (240, 260))
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
@@ -194,6 +252,9 @@ while run:
                                 window.blit(flower, (0, 250))
                                 window.blit(flower2, (440, 250))
                                 window.blit(kity[count], (240, 260))
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
@@ -219,6 +280,9 @@ while run:
                                 window.blit(flower, (0, 250))
                                 window.blit(flower2, (440, 250))
                                 window.blit(melody[count], (240, 260))
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
@@ -244,6 +308,9 @@ while run:
                                 window.blit(flower, (0, 250))
                                 window.blit(flower2, (440, 250))
                                 window.blit(kero[count], (240, 260))
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
@@ -269,6 +336,9 @@ while run:
                                 window.blit(flower, (0, 250))
                                 window.blit(flower2, (440, 250))
                                 window.blit(cinnam[count], (240, 260))
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
@@ -286,53 +356,76 @@ while run:
                                 pygame.display.update()
                                 clock.tick(35)
 
+                        coin_countdown = 2500
+                        coin_interval = 100
+                        WIDTH = 650
+                        HEIGHT = 500
+                        COIN_COUNT = 10
+                        pers = kity
                         global coins
                         game_running = True
                         while game_running:
                             if game_running:
                                 autominer()
-                            for event in pygame.event.get():
-                                if event.type == pygame.QUIT:
-                                    game_running = False
+                                pygame.mouse.set_visible(False)
+                                clock = pygame.time.Clock()
+                                ADDCOIN = pygame.USEREVENT + 1
+                                pygame.time.set_timer(ADDCOIN, coin_countdown)
 
-                                if event.type == pygame.MOUSEBUTTONDOWN:
-                                    mopos = pygame.mouse.get_pos()
-                                    if mopos >= (260, 0):
-                                        if mopos <= (400, 0):
-                                            coins += mong
-                                            if lvl == 1:
-                                                kitty()
-                                            if lvl == 2:
-                                                kuromi()
-                                            if lvl == 3:
-                                                cinnamoroll()
-                                            if lvl == 4:
-                                                my_melody()
-                                            if lvl == 5:
-                                                keroppi()
-                                    if mopos <= (600, 0):
-                                        if mopos >= (500, 0):
-                                            if coins >= cost:
-                                                coins = coins - cost
-                                                cost = cost * 1.5
-                                                mong = mong * 1.1
-                                                cost = round(cost, 0)
+                                coin_list = pygame.sprite.Group()
+                                player = Player()
+                                player.update(pygame.mouse.get_pos())
 
-                                    if mopos >= (50, 0):
-                                        if mopos <= (245, 0):
-                                            if coins >= cost2:
-                                                coins = coins - cost2
-                                                cost2 = cost2 * 1.5
-                                                autog = autog + 0.5
-                                                cost2 = round(cost2, 0)
+                                running = True
+                                while running:
 
-                                    if coins < 160:
-                                        if coins > num - 1:
-                                            lvl += 1
-                                            num = num * 2
-                                    else:
-                                        DrawText("YOU WIN ", black, light_blue, 320, 250, 90)
-                                        game_running = False
+                                    for event in pygame.event.get():
+                                        if event.type == pygame.QUIT:
+                                            running = False
+
+                                        if event.type == pygame.MOUSEBUTTONDOWN:
+                                            mopos = pygame.mouse.get_pos()
+                                            if mopos >= (260, 0):
+                                                if mopos <= (400, 0):
+                                                    coins += mong
+                                                    if lvl == 1:
+                                                        kitty()
+                                                    if lvl == 2:
+                                                        pers = kur
+                                                        kuromi()
+                                                    if lvl == 3:
+                                                        pers = cinnam
+                                                        cinnamoroll()
+                                                    if lvl == 4:
+                                                        pers = melody
+                                                        my_melody()
+                                                    if lvl == 5:
+                                                        pers = kero
+                                                        keroppi()
+                                            if mopos <= (600, 0):
+                                                if mopos >= (500, 0):
+                                                    if coins >= cost:
+                                                        coins = coins - cost
+                                                        cost = cost * 1.5
+                                                        mong = mong * 1.1
+                                                        cost = round(cost, 0)
+
+                                            if mopos >= (50, 0):
+                                                if mopos <= (245, 0):
+                                                    if coins >= cost2:
+                                                        coins = coins - cost2
+                                                        cost2 = cost2 * 1.5
+                                                        autog = autog + 0.5
+                                                        cost2 = round(cost2, 0)
+
+                                            if coins < 160:
+                                                if coins > num - 1:
+                                                    lvl += 1
+                                                    num = num * 2
+                                            else:
+                                                DrawText("YOU WIN ", black, light_blue, 320, 250, 90)
+                                                game_running = False
+
                             DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
                                      20)
                             DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
