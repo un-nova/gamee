@@ -216,6 +216,7 @@ while run:
                                     )
                                 )
 
+
                         def kuromi():
                             global count
                             run = True
@@ -425,6 +426,56 @@ while run:
                                             else:
                                                 DrawText("YOU WIN ", black, light_blue, 320, 250, 90)
                                                 game_running = False
+                                        elif event.type == ADDCOIN:
+                                            new_coin = Coin()
+                                            coin_list.add(new_coin)
+
+                                            if len(coin_list) < 3:
+                                                coin_countdown -= coin_interval
+                                            if coin_countdown < 100:
+                                                coin_countdown = 100
+                                            pygame.time.set_timer(ADDCOIN, 0)
+
+                                            pygame.time.set_timer(ADDCOIN, coin_countdown)
+
+                                    player.update(pygame.mouse.get_pos())
+
+                                    coins_collected = pygame.sprite.spritecollide(
+                                        sprite=player, group=coin_list, dokill=True
+                                    )
+                                    for coin in coins_collected:
+                                        coins += 10
+
+                                    if len(coin_list) >= COIN_COUNT:
+                                        running = False
+                                    window.blit(fon, (-300, -20))
+                                    window.blit(flower, (0, 250))
+                                    window.blit(flower2, (440, 250))
+                                    DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue,
+                                             150,
+                                             50,
+                                             20)
+                                    DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
+                                    DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue,
+                                             530,
+                                             50,
+                                             20)
+                                    DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                    for coin in coin_list:
+                                        window.blit(coin.surf, coin.rect)
+                                    window.blit(pers[count], (240, 260))
+                                    window.blit(player.surf, player.rect)
+                                    pygame.display.flip()
+
+                                    clock.tick(30)
+
+                                print(f"Game over! Final score: {coins}")
+
+                                pygame.mouse.set_visible(True)
+                                pygame.quit()
+                            for event in pygame.event.get():
+                                if event.type == pygame.QUIT:
+                                    game_running = False
 
                             DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
                                      20)
