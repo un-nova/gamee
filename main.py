@@ -1,7 +1,15 @@
+import sqlite3
 import pygame
 import cv2
 from random import randint
 from typing import Tuple
+
+b = sqlite3.connect('database.db')
+c = b.cursor()
+c.execute('''CREATE TABLE IF NOT EXISTS score(
+    best INTEGER
+)''')
+b.commit()
 
 pygame.init()
 
@@ -110,6 +118,7 @@ while run:
                     grey = (128, 128, 128)
                     light_grey = (224, 224, 224)
                     light_blue = (173, 216, 230)
+                    pink = (255,235,238)
                     blue = (0, 100, 250)
                     count = 0
                     t = 2
@@ -403,9 +412,15 @@ while run:
                                         coins = 0
                                         lvl = 1
                                         main_loop()
-
                                 en = pygame.image.load('game over.png')
                                 window.blit(en, (0, 0))
+                                c.execute(f'SELECT best score FROM score WHERE best>"{coins}"')
+                                if c.fetchone() is None:
+                                    c.execute(f"INSERT INTO score VALUES(?)", (coins,))
+                                b.commit()
+                                c.execute("SELECT MAX(best) AS maximum FROM score")
+                                result = " ".join(map(str, c.fetchall()))
+                                DrawText("your best score: " + str(str(result)[1:-2]),  black, pink, 325, 390, 20)
                                 pygame.display.flip()
 
                         coin_countdown = 2500
@@ -473,9 +488,7 @@ while run:
                                                 if coins > num - 1:
                                                     lvl += 1
                                                     num = num * 2
-                                            else:
-                                                DrawText("YOU WIN ", black, light_blue, 320, 250, 90)
-                                                game_running = False
+
                                         elif event.type == ADDCOIN:
                                             new_coin = Coin()
                                             coin_list.add(new_coin)
@@ -503,16 +516,16 @@ while run:
                                     window.blit(flower, (40, 230))
                                     window.blit(flower2, (450, 230))
                                     window.blit(pers[count], (240, 260))
-                                    DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black,light_blue,
+                                    DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue,
                                              150,
                                              50,
                                              20)
-                                    DrawText("upgrade clicker " + str(cost), black,light_blue,  530, 390, 20)
-                                    DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black,light_blue,
+                                    DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
+                                    DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
                                              530,
                                              50,
                                              20)
-                                    DrawText("buy auto miner " + str(cost2), black,light_blue,  120, 390, 20)
+                                    DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
                                     for coin in coin_list:
                                         window.blit(coin.surf, coin.rect)
                                     window.blit(player.surf, player.rect)
@@ -521,9 +534,9 @@ while run:
                                     clock.tick(30)
 
                                 print(f"Game over! Final score: {coins}")
-
                                 pygame.mouse.set_visible(True)
                                 pygame.quit()
+
                             for event in pygame.event.get():
                                 if event.type == pygame.QUIT:
                                     game_running = False
