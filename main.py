@@ -1,5 +1,4 @@
 import pygame
-import time
 import cv2
 from random import randint
 from typing import Tuple
@@ -72,6 +71,22 @@ def draw_mouse():
 gifFrameList = loadGIF(r"pix.gif")
 currentFrame = 0
 
+
+def rul():
+    rules = pygame.image.load('rules.png')
+    running = True
+    while running:
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                running = False
+
+            elif e.type == pygame.KEYDOWN and e.key == pygame.K_q:
+                running = False
+
+        window.blit(rules, (0, 0))
+        pygame.display.flip()
+
+
 run = True
 while run:
     draw_mouse()
@@ -79,6 +94,8 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
+            rul()
         if event.type == pygame.MOUSEBUTTONDOWN:
             mopos = pygame.mouse.get_pos()
             if mopos >= (250, 0):
@@ -93,9 +110,9 @@ while run:
                     grey = (128, 128, 128)
                     light_grey = (224, 224, 224)
                     light_blue = (173, 216, 230)
-                    grey = (128, 128, 128)
                     blue = (0, 100, 250)
                     count = 0
+                    t = 2
                     gameDisplay = pygame.display.set_mode((display_width, display_height))
                     pygame.display.set_caption("HelloKitty Garden")
                     fon = pygame.image.load('fon.png')
@@ -104,7 +121,7 @@ while run:
                     flower2 = pygame.image.load('flower.png')
                     flower2.set_colorkey((255, 255, 255))
                     window.blit(fon, (-300, -20))
-                    window.blit(flower, (0, 250))
+                    window.blit(flower, (40, 250))
                     window.blit(flower2, (440, 250))
                     pygame.mixer.music.stop()
                     pygame.mixer.music.load('sounds/base game.mp3')
@@ -114,8 +131,12 @@ while run:
                     def autominer():
                         global coins
                         global autog
-                        time.sleep(0.1)
-                        coins = coins + autog
+                        global t
+                        if t % 2 == 0:
+                            coins = coins + autog
+                            t += 0.5
+                        else:
+                            t += 0.5
 
 
                     def DrawText(text, Textcolor, Rectcolor, x, y, fsize):
@@ -216,32 +237,33 @@ while run:
                                     )
                                 )
 
-
                         def kuromi():
                             global count
                             run = True
                             while run:
                                 window.blit(fon, (-300, -20))
-                                window.blit(flower, (0, 250))
-                                window.blit(flower2, (440, 250))
+                                window.blit(flower, (40, 230))
+                                window.blit(flower2, (450, 230))
                                 window.blit(kur[count], (240, 260))
-                                for coin in coin_list:
-                                    window.blit(coin.surf, coin.rect)
-                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
                                 DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                         530,
                                          50,
                                          20)
                                 DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 pygame.display.update()
                                 if count == 8:
                                     count = 0
                                     run = False
                                 else:
                                     count += 1
+                                autominer()
                                 pygame.display.update()
                                 clock.tick(35)
 
@@ -250,26 +272,28 @@ while run:
                             run = True
                             while run:
                                 window.blit(fon, (-300, -20))
-                                window.blit(flower, (0, 250))
-                                window.blit(flower2, (440, 250))
+                                window.blit(flower, (40, 230))
+                                window.blit(flower2, (450, 230))
                                 window.blit(kity[count], (240, 260))
-                                for coin in coin_list:
-                                    window.blit(coin.surf, coin.rect)
-                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
                                 DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                         530,
                                          50,
                                          20)
                                 DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 pygame.display.update()
                                 if count == 8:
                                     count = 0
                                     run = False
                                 else:
                                     count += 1
+                                autominer()
                                 pygame.display.update()
                                 clock.tick(35)
 
@@ -278,26 +302,28 @@ while run:
                             run = True
                             while run:
                                 window.blit(fon, (-300, -20))
-                                window.blit(flower, (0, 250))
-                                window.blit(flower2, (440, 250))
+                                window.blit(flower, (40, 230))
+                                window.blit(flower2, (450, 230))
                                 window.blit(melody[count], (240, 260))
-                                for coin in coin_list:
-                                    window.blit(coin.surf, coin.rect)
-                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
                                 DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                         530,
                                          50,
                                          20)
                                 DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 pygame.display.update()
                                 if count == 8:
                                     count = 0
                                     run = False
                                 else:
                                     count += 1
+                                autominer()
                                 pygame.display.update()
                                 clock.tick(35)
 
@@ -306,26 +332,28 @@ while run:
                             run = True
                             while run:
                                 window.blit(fon, (-300, -20))
-                                window.blit(flower, (0, 250))
-                                window.blit(flower2, (440, 250))
+                                window.blit(flower, (40, 230))
+                                window.blit(flower2, (450, 230))
                                 window.blit(kero[count], (240, 260))
-                                for coin in coin_list:
-                                    window.blit(coin.surf, coin.rect)
-                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
                                 DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                         530,
                                          50,
                                          20)
                                 DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 pygame.display.update()
                                 if count == 8:
                                     count = 0
                                     run = False
                                 else:
                                     count += 1
+                                autominer()
                                 pygame.display.update()
                                 clock.tick(35)
 
@@ -334,28 +362,51 @@ while run:
                             run = True
                             while run:
                                 window.blit(fon, (-300, -20))
-                                window.blit(flower, (0, 250))
-                                window.blit(flower2, (440, 250))
+                                window.blit(flower, (40, 230))
+                                window.blit(flower2, (450, 230))
                                 window.blit(cinnam[count], (240, 260))
-                                for coin in coin_list:
-                                    window.blit(coin.surf, coin.rect)
-                                window.blit(player.surf, player.rect)
                                 DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
                                          50,
                                          20)
                                 DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530,
+                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                         530,
                                          50,
                                          20)
                                 DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
                                 pygame.display.update()
                                 if count == 8:
                                     count = 0
                                     run = False
                                 else:
                                     count += 1
+                                autominer()
                                 pygame.display.update()
                                 clock.tick(35)
+
+                        def ending():
+                            global autog
+                            global coins
+                            global lvl
+                            run = True
+                            while run:
+                                for e in pygame.event.get():
+                                    if e.type == pygame.QUIT:
+                                        run = False
+
+                                    elif e.type == pygame.KEYDOWN and e.key == pygame.K_q:
+                                        run = False
+                                        autog = 0
+                                        coins = 0
+                                        lvl = 1
+                                        main_loop()
+
+                                en = pygame.image.load('game over.png')
+                                window.blit(en, (0, 0))
+                                pygame.display.flip()
 
                         coin_countdown = 2500
                         coin_interval = 100
@@ -367,7 +418,6 @@ while run:
                         game_running = True
                         while game_running:
                             if game_running:
-                                autominer()
                                 pygame.mouse.set_visible(False)
                                 clock = pygame.time.Clock()
                                 ADDCOIN = pygame.USEREVENT + 1
@@ -379,7 +429,7 @@ while run:
 
                                 running = True
                                 while running:
-
+                                    autominer()
                                     for event in pygame.event.get():
                                         if event.type == pygame.QUIT:
                                             running = False
@@ -416,7 +466,7 @@ while run:
                                                     if coins >= cost2:
                                                         coins = coins - cost2
                                                         cost2 = cost2 * 1.5
-                                                        autog = autog + 0.5
+                                                        autog = autog + 0.2
                                                         cost2 = round(cost2, 0)
 
                                             if coins < 160:
@@ -447,23 +497,24 @@ while run:
                                         coins += 10
 
                                     if len(coin_list) >= COIN_COUNT:
+                                        ending()
                                         running = False
                                     window.blit(fon, (-300, -20))
-                                    window.blit(flower, (0, 250))
-                                    window.blit(flower2, (440, 250))
-                                    DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue,
+                                    window.blit(flower, (40, 230))
+                                    window.blit(flower2, (450, 230))
+                                    window.blit(pers[count], (240, 260))
+                                    DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black,light_blue,
                                              150,
                                              50,
                                              20)
-                                    DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                    DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue,
+                                    DrawText("upgrade clicker " + str(cost), black,light_blue,  530, 390, 20)
+                                    DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black,light_blue,
                                              530,
                                              50,
                                              20)
-                                    DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                    DrawText("buy auto miner " + str(cost2), black,light_blue,  120, 390, 20)
                                     for coin in coin_list:
                                         window.blit(coin.surf, coin.rect)
-                                    window.blit(pers[count], (240, 260))
                                     window.blit(player.surf, player.rect)
                                     pygame.display.flip()
 
@@ -476,13 +527,6 @@ while run:
                             for event in pygame.event.get():
                                 if event.type == pygame.QUIT:
                                     game_running = False
-
-                            DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150, 50,
-                                     20)
-                            DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                            DrawText("lvl " + str(lvl) + " Собери " + str(num) + " монет", black, light_blue, 530, 50,
-                                     20)
-                            DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
                             pygame.display.update()
                             clock.tick(20)
 
