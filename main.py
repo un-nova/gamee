@@ -4,6 +4,9 @@ from typing import Tuple
 import sys
 import cv2
 import pygame
+import ctypes
+
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('Случайная строка')
 
 b = sqlite3.connect('database.db')
 c = b.cursor()
@@ -51,6 +54,7 @@ def loadGIF(filename):
 
 
 window = pygame.display.set_mode((650, 500))
+pygame.display.set_icon(pygame.image.load("icon.ico"))
 clock = pygame.time.Clock()
 
 
@@ -564,3 +568,4 @@ while run:
     currentFrame = (currentFrame + 1) % len(gifFrameList)
 
     pygame.display.flip()
+
