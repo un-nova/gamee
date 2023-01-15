@@ -1,8 +1,9 @@
 import sqlite3
-import pygame
-import cv2
 from random import randint
 from typing import Tuple
+
+import cv2
+import pygame
 
 b = sqlite3.connect('database.db')
 c = b.cursor()
@@ -148,7 +149,7 @@ while run:
 
 
                     def DrawText(text, Textcolor, Rectcolor, x, y, fsize):
-                        font = pygame.font.Font('freesansbold.ttf', fsize)
+                        font = pygame.font.SysFont('Berlin Sans FB', fsize)
                         text = font.render(text, True, Textcolor, Rectcolor)
                         textRect = text.get_rect()
                         textRect.center = (x, y)
@@ -219,6 +220,7 @@ while run:
                         global color1
                         global color2
                         global color3
+                        pygame.init()
                         mong = 1
                         cost = 50
                         cost2 = 50
@@ -411,6 +413,9 @@ while run:
                                         autog = 0
                                         coins = 0
                                         lvl = 1
+                                        pygame.mixer.music.stop()
+                                        pygame.mixer.music.load('sounds/base game.mp3')
+                                        pygame.mixer.music.play(-1)
                                         main_loop()
                                 en = pygame.image.load('game over.png')
                                 window.blit(en, (0, 0))
@@ -432,120 +437,120 @@ while run:
                         global coins
                         game_running = True
                         while game_running:
-                            if game_running:
-                                pygame.mouse.set_visible(False)
-                                clock = pygame.time.Clock()
-                                ADDCOIN = pygame.USEREVENT + 1
-                                pygame.time.set_timer(ADDCOIN, coin_countdown)
-
-                                coin_list = pygame.sprite.Group()
-                                player = Player()
-                                player.update(pygame.mouse.get_pos())
-
-                                running = True
-                                while running:
-                                    autominer()
-                                    for event in pygame.event.get():
-                                        if event.type == pygame.QUIT:
-                                            running = False
-
-                                        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                                            mopos = pygame.mouse.get_pos()
-                                            if mopos >= (260, 0):
-                                                if mopos <= (400, 0):
-                                                    coins += mong
-                                                    if lvl2 == 1:
-                                                        pers = kity
-                                                        kitty()
-                                                    if lvl2 == 2:
-                                                        pers = kur
-                                                        kuromi()
-                                                    if lvl2 == 3:
-                                                        pers = cinnam
-                                                        cinnamoroll()
-                                                    if lvl2 == 4:
-                                                        pers = melody
-                                                        my_melody()
-                                                    if lvl2 == 5:
-                                                        pers = kero
-                                                        keroppi()
-                                            if mopos <= (600, 0):
-                                                if mopos >= (500, 0):
-                                                    if coins >= cost:
-                                                        coins = coins - cost
-                                                        cost = cost * 1.5
-                                                        mong = mong * 1.1
-                                                        cost = round(cost, 0)
-
-                                            if mopos >= (50, 0):
-                                                if mopos <= (245, 0):
-                                                    if coins >= cost2:
-                                                        coins = coins - cost2
-                                                        cost2 = cost2 * 1.5
-                                                        autog = autog + 0.2
-                                                        cost2 = round(cost2, 0)
-                                            if lvl2 <= 5:
-                                                if coins > num - 1:
-                                                    lvl += 1
-                                                    lvl2 += 1
-                                                    num = num * 2
-                                            else:
-                                                lvl2 = 1
-                                        elif event.type == ADDCOIN:
-                                            new_coin = Coin()
-                                            coin_list.add(new_coin)
-
-                                            if len(coin_list) < 3:
-                                                coin_countdown -= coin_interval
-                                            if coin_countdown < 100:
-                                                coin_countdown = 100
-                                            pygame.time.set_timer(ADDCOIN, 0)
-
-                                            pygame.time.set_timer(ADDCOIN, coin_countdown)
-
-                                    player.update(pygame.mouse.get_pos())
-
-                                    coins_collected = pygame.sprite.spritecollide(
-                                        sprite=player, group=coin_list, dokill=True
-                                    )
-                                    for coin in coins_collected:
-                                        coins += 10
-
-                                    if len(coin_list) >= COIN_COUNT:
-                                        ending()
-                                        running = False
-                                    window.blit(fon, (-300, -20))
-                                    window.blit(flower, (40, 230))
-                                    window.blit(flower2, (450, 230))
-                                    window.blit(pers[count], (240, 260))
-                                    DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_pink,
-                                             150,
-                                             50,
-                                             20)
-                                    DrawText("upgrade clicker " + str(cost), black, light_pink, 530, 390, 20)
-                                    DrawText("lvl " + str(lvl) + " collect " + str(num) + " coins", black, light_pink,
-                                             530,
-                                             50,
-                                             20)
-                                    DrawText("buy auto miner " + str(cost2), black, light_pink, 120, 390, 20)
-                                    for coin in coin_list:
-                                        window.blit(coin.surf, coin.rect)
-                                    window.blit(player.surf, player.rect)
-                                    pygame.display.flip()
-
-                                    clock.tick(30)
-
-                                print(f"Game over! Final score: {coins}")
-                                pygame.mouse.set_visible(True)
-                                pygame.quit()
-
                             for event in pygame.event.get():
                                 if event.type == pygame.QUIT:
                                     game_running = False
+                            pygame.mouse.set_visible(False)
+                            clock = pygame.time.Clock()
+                            ADDCOIN = pygame.USEREVENT + 1
+                            pygame.time.set_timer(ADDCOIN, coin_countdown)
+
+                            coin_list = pygame.sprite.Group()
+                            player = Player()
+                            player.update(pygame.mouse.get_pos())
+
+                            running = True
+                            while running:
+                                autominer()
+                                for event in pygame.event.get():
+                                    if event.type == pygame.QUIT:
+                                        running = False
+
+                                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                                        mopos = pygame.mouse.get_pos()
+                                        if mopos >= (260, 0):
+                                            if mopos <= (400, 0):
+                                                coins += mong
+                                                if lvl2 == 1:
+                                                    pers = kity
+                                                    kitty()
+                                                if lvl2 == 2:
+                                                    pers = kur
+                                                    kuromi()
+                                                if lvl2 == 3:
+                                                    pers = cinnam
+                                                    cinnamoroll()
+                                                if lvl2 == 4:
+                                                    pers = melody
+                                                    my_melody()
+                                                if lvl2 == 5:
+                                                    pers = kero
+                                                    keroppi()
+                                        if mopos <= (600, 0):
+                                            if mopos >= (500, 0):
+                                                if coins >= cost:
+                                                    coins = coins - cost
+                                                    cost = cost * 1.5
+                                                    mong = mong * 1.1
+                                                    cost = round(cost, 0)
+
+                                        if mopos >= (50, 0):
+                                            if mopos <= (245, 0):
+                                                if coins >= cost2:
+                                                    coins = coins - cost2
+                                                    cost2 = cost2 * 1.5
+                                                    autog = autog + 0.2
+                                                    cost2 = round(cost2, 0)
+                                        if lvl2 <= 5:
+                                            if coins > num - 1:
+                                                lvl += 1
+                                                lvl2 += 1
+                                                num = num * 2
+                                        else:
+                                            lvl2 = 1
+                                    elif event.type == ADDCOIN:
+                                        new_coin = Coin()
+                                        coin_list.add(new_coin)
+
+                                        if len(coin_list) < 3:
+                                            coin_countdown -= coin_interval
+                                        if coin_countdown < 100:
+                                            coin_countdown = 100
+                                        pygame.time.set_timer(ADDCOIN, 0)
+
+                                        pygame.time.set_timer(ADDCOIN, coin_countdown)
+
+                                player.update(pygame.mouse.get_pos())
+
+                                coins_collected = pygame.sprite.spritecollide(
+                                    sprite=player, group=coin_list, dokill=True
+                                )
+                                for coin in coins_collected:
+                                    coins += 10
+
+                                if len(coin_list) >= COIN_COUNT:
+                                    pygame.mixer.music.stop()
+                                    pygame.mixer.music.load('sounds/Game Over.mp3')
+                                    pygame.mixer.music.play()
+                                    ending()
+                                    running = False
+                                window.blit(fon, (-300, -20))
+                                window.blit(flower, (40, 230))
+                                window.blit(flower2, (450, 230))
+                                window.blit(pers[count], (240, 260))
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_pink,
+                                         150,
+                                         50,
+                                         20)
+                                DrawText("upgrade clicker " + str(cost), black, light_pink, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " collect " + str(num) + " coins", black, light_pink,
+                                         530,
+                                         50,
+                                         20)
+                                DrawText("buy auto miner " + str(cost2), black, light_pink, 120, 390, 20)
+                                for coin in coin_list:
+                                    window.blit(coin.surf, coin.rect)
+                                window.blit(player.surf, player.rect)
+                                pygame.display.flip()
+
+                                clock.tick(30)
+                            pygame.init()
                             pygame.display.update()
                             clock.tick(20)
+                            pygame.quit()
+                            quit()
 
-
+                    pygame.init()
                     main_loop()
                     pygame.quit()
                     quit()
