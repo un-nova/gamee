@@ -103,7 +103,7 @@ while run:
             run = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
             rul()
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mopos = pygame.mouse.get_pos()
             if mopos >= (250, 0):
                 if mopos <= (450, 0):
@@ -449,7 +449,7 @@ while run:
                                         if event.type == pygame.QUIT:
                                             running = False
 
-                                        if event.type == pygame.MOUSEBUTTONDOWN:
+                                        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                                             mopos = pygame.mouse.get_pos()
                                             if mopos >= (260, 0):
                                                 if mopos <= (400, 0):
