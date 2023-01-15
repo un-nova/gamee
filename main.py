@@ -1,7 +1,7 @@
 import sqlite3
 from random import randint
 from typing import Tuple
-
+import sys
 import cv2
 import pygame
 
@@ -398,6 +398,9 @@ while run:
                                 pygame.display.update()
                                 clock.tick(35)
 
+                        def quit():
+                            sys.exit()
+
                         def ending():
                             global autog
                             global coins
@@ -549,6 +552,7 @@ while run:
                             clock.tick(20)
                             pygame.quit()
                             quit()
+
 
                     pygame.init()
                     main_loop()
