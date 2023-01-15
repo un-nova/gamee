@@ -1,8 +1,15 @@
+import sqlite3
 import pygame
 import cv2
 from random import randint
 from typing import Tuple
 
+b = sqlite3.connect('database.db')
+c = b.cursor()
+c.execute('''CREATE TABLE IF NOT EXISTS score(
+    best INTEGER
+)''')
+b.commit()
 pygame.init()
 
 pygame.mixer.music.load('sounds/start.mp3')
@@ -109,7 +116,8 @@ while run:
                     black = (0, 0, 0)
                     grey = (128, 128, 128)
                     light_grey = (224, 224, 224)
-                    light_blue = (173, 216, 230)
+                    light_pink = (251, 244, 242)
+                    pink = (255, 235, 238)
                     blue = (0, 100, 250)
                     count = 0
                     t = 2
@@ -216,6 +224,7 @@ while run:
                         cost2 = 50
                         num = 10
                         lvl = 1
+                        lvl2 = 1
 
                         class Player(pygame.sprite.Sprite):
                             def __init__(self):
@@ -245,15 +254,15 @@ while run:
                                 window.blit(flower, (40, 230))
                                 window.blit(flower2, (450, 230))
                                 window.blit(kur[count], (240, 260))
-                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_pink, 150,
                                          50,
                                          20)
-                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                DrawText("upgrade clicker " + str(cost), black, light_pink, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " collect " + str(num) + " coins", black, light_pink,
                                          530,
                                          50,
                                          20)
-                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                DrawText("buy auto miner " + str(cost2), black, light_pink, 120, 390, 20)
                                 for coin in coin_list:
                                     window.blit(coin.surf, coin.rect)
                                 window.blit(player.surf, player.rect)
@@ -275,15 +284,15 @@ while run:
                                 window.blit(flower, (40, 230))
                                 window.blit(flower2, (450, 230))
                                 window.blit(kity[count], (240, 260))
-                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_pink, 150,
                                          50,
                                          20)
-                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                DrawText("upgrade clicker " + str(cost), black, light_pink, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " collect " + str(num) + " coins", black, light_pink,
                                          530,
                                          50,
                                          20)
-                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                DrawText("buy auto miner " + str(cost2), black, light_pink, 120, 390, 20)
                                 for coin in coin_list:
                                     window.blit(coin.surf, coin.rect)
                                 window.blit(player.surf, player.rect)
@@ -305,15 +314,15 @@ while run:
                                 window.blit(flower, (40, 230))
                                 window.blit(flower2, (450, 230))
                                 window.blit(melody[count], (240, 260))
-                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_pink, 150,
                                          50,
                                          20)
-                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                DrawText("upgrade clicker " + str(cost), black, light_pink, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " collect " + str(num) + " coins", black, light_pink,
                                          530,
                                          50,
                                          20)
-                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                DrawText("buy auto miner " + str(cost2), black, light_pink, 120, 390, 20)
                                 for coin in coin_list:
                                     window.blit(coin.surf, coin.rect)
                                 window.blit(player.surf, player.rect)
@@ -335,15 +344,15 @@ while run:
                                 window.blit(flower, (40, 230))
                                 window.blit(flower2, (450, 230))
                                 window.blit(kero[count], (240, 260))
-                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_pink, 150,
                                          50,
                                          20)
-                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                DrawText("upgrade clicker " + str(cost), black, light_pink, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " collect " + str(num) + " coins", black, light_pink,
                                          530,
                                          50,
                                          20)
-                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                DrawText("buy auto miner " + str(cost2), black, light_pink, 120, 390, 20)
                                 for coin in coin_list:
                                     window.blit(coin.surf, coin.rect)
                                 window.blit(player.surf, player.rect)
@@ -365,15 +374,15 @@ while run:
                                 window.blit(flower, (40, 230))
                                 window.blit(flower2, (450, 230))
                                 window.blit(cinnam[count], (240, 260))
-                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_blue, 150,
+                                DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_pink, 150,
                                          50,
                                          20)
-                                DrawText("upgrade clicker " + str(cost), black, light_blue, 530, 390, 20)
-                                DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black, light_blue,
+                                DrawText("upgrade clicker " + str(cost), black, light_pink, 530, 390, 20)
+                                DrawText("lvl " + str(lvl) + " collect " + str(num) + " coins", black, light_pink,
                                          530,
                                          50,
                                          20)
-                                DrawText("buy auto miner " + str(cost2), black, light_blue, 120, 390, 20)
+                                DrawText("buy auto miner " + str(cost2), black, light_pink, 120, 390, 20)
                                 for coin in coin_list:
                                     window.blit(coin.surf, coin.rect)
                                 window.blit(player.surf, player.rect)
@@ -403,9 +412,15 @@ while run:
                                         coins = 0
                                         lvl = 1
                                         main_loop()
-
                                 en = pygame.image.load('game over.png')
                                 window.blit(en, (0, 0))
+                                c.execute(f'SELECT best score FROM score WHERE best>"{coins}"')
+                                if c.fetchone() is None:
+                                    c.execute(f"INSERT INTO score VALUES(?)", (f'{coins:.2f}',))
+                                b.commit()
+                                c.execute("SELECT MAX(best) AS maximum FROM score")
+                                result = c.fetchall()
+                                DrawText("your best score: " + str(result)[2:-3], black, pink, 325, 390, 20)
                                 pygame.display.flip()
 
                         coin_countdown = 2500
@@ -439,18 +454,19 @@ while run:
                                             if mopos >= (260, 0):
                                                 if mopos <= (400, 0):
                                                     coins += mong
-                                                    if lvl == 1:
+                                                    if lvl2 == 1:
+                                                        pers = kity
                                                         kitty()
-                                                    if lvl == 2:
+                                                    if lvl2 == 2:
                                                         pers = kur
                                                         kuromi()
-                                                    if lvl == 3:
+                                                    if lvl2 == 3:
                                                         pers = cinnam
                                                         cinnamoroll()
-                                                    if lvl == 4:
+                                                    if lvl2 == 4:
                                                         pers = melody
                                                         my_melody()
-                                                    if lvl == 5:
+                                                    if lvl2 == 5:
                                                         pers = kero
                                                         keroppi()
                                             if mopos <= (600, 0):
@@ -468,14 +484,13 @@ while run:
                                                         cost2 = cost2 * 1.5
                                                         autog = autog + 0.2
                                                         cost2 = round(cost2, 0)
-
-                                            if coins < 160:
+                                            if lvl2 <= 5:
                                                 if coins > num - 1:
                                                     lvl += 1
+                                                    lvl2 += 1
                                                     num = num * 2
                                             else:
-                                                DrawText("YOU WIN ", black, light_blue, 320, 250, 90)
-                                                game_running = False
+                                                lvl2 = 1
                                         elif event.type == ADDCOIN:
                                             new_coin = Coin()
                                             coin_list.add(new_coin)
@@ -503,16 +518,16 @@ while run:
                                     window.blit(flower, (40, 230))
                                     window.blit(flower2, (450, 230))
                                     window.blit(pers[count], (240, 260))
-                                    DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black,light_blue,
+                                    DrawText("you have " + str(f'{coins:.2f}') + " flower coins", black, light_pink,
                                              150,
                                              50,
                                              20)
-                                    DrawText("upgrade clicker " + str(cost), black,light_blue,  530, 390, 20)
-                                    DrawText("lvl " + str(lvl) + " собери " + str(num) + " монет", black,light_blue,
+                                    DrawText("upgrade clicker " + str(cost), black, light_pink, 530, 390, 20)
+                                    DrawText("lvl " + str(lvl) + " collect " + str(num) + " coins", black, light_pink,
                                              530,
                                              50,
                                              20)
-                                    DrawText("buy auto miner " + str(cost2), black,light_blue,  120, 390, 20)
+                                    DrawText("buy auto miner " + str(cost2), black, light_pink, 120, 390, 20)
                                     for coin in coin_list:
                                         window.blit(coin.surf, coin.rect)
                                     window.blit(player.surf, player.rect)
@@ -521,9 +536,9 @@ while run:
                                     clock.tick(30)
 
                                 print(f"Game over! Final score: {coins}")
-
                                 pygame.mouse.set_visible(True)
                                 pygame.quit()
+
                             for event in pygame.event.get():
                                 if event.type == pygame.QUIT:
                                     game_running = False
