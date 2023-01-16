@@ -7,7 +7,7 @@ import pygame
 import ctypes
 
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('Случайная строка')
-
+# база данных
 b = sqlite3.connect('database.db')
 c = b.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS score(
@@ -33,6 +33,7 @@ chor_ef = [pygame.image.load('chors_ef/pixil-frame-0.png'),
            ]
 
 
+# функции для гиф анимации окна загрузки
 def cv2ImageToSurface(cv2Image):
     size = cv2Image.shape[1::-1]
     format = 'RGBA' if cv2Image.shape[2] == 4 else 'RGB'
@@ -58,6 +59,7 @@ pygame.display.set_icon(pygame.image.load("icon.ico"))
 clock = pygame.time.Clock()
 
 
+# эффекты мыши для экрана загрузки
 def draw_mouse():
     global mouse_counter, need_drow_click
     mouse = pygame.mouse.get_pos()
@@ -84,6 +86,7 @@ gifFrameList = loadGIF(r"pix.gif")
 currentFrame = 0
 
 
+# функция правил, нажатие кнопки Q
 def rul():
     rules = pygame.image.load('rules.png')
     running = True
@@ -232,6 +235,7 @@ while run:
                         lvl = 1
                         lvl2 = 1
 
+                        # классы для мыши и появляющихся цыетов
                         class Player(pygame.sprite.Sprite):
                             def __init__(self):
                                 super(Player, self).__init__()
@@ -252,6 +256,7 @@ while run:
                                     )
                                 )
 
+                        # функции персонажей
                         def kuromi():
                             global count
                             run = True
@@ -405,6 +410,7 @@ while run:
                         def quit():
                             sys.exit()
 
+                        # функция экрана конца-проигрыша
                         def ending():
                             global autog
                             global coins
@@ -462,7 +468,7 @@ while run:
                                 for event in pygame.event.get():
                                     if event.type == pygame.QUIT:
                                         running = False
-
+                                    # кнопки игры, реакция на мышь
                                     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                                         mopos = pygame.mouse.get_pos()
                                         if mopos >= (260, 0):
@@ -568,4 +574,3 @@ while run:
     currentFrame = (currentFrame + 1) % len(gifFrameList)
 
     pygame.display.flip()
-
